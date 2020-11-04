@@ -90,6 +90,7 @@ Read the first few lines of the Python file involved to understand the parameter
 
 ### 1. Update Python version to 3.8.x
 - Only if Python version 3.8.x >= is not installed yet
+- Running install_ubuntu.sh also runs these commands
 - Ref: https://phoenixnap.com/kb/how-to-install-python-3-ubuntu
 ```
 sudo apt update
@@ -102,6 +103,7 @@ sudo apt install python3.8 python3.8-dev
 <hr>
 
 ### 2. Install packages in virtualenv
+- Running install_ubuntu.sh also runs these commands
 - Ref: https://codechacha.com/ko/virtual-env-setup/
 ```
 sudo apt update
