@@ -35,7 +35,7 @@ if "%isPythonInstalled%" == "1" (
   pip install virtualenv
   virtualenv venv-windows
   venv-windows\Scripts\activate
-  pip install cmake
+  pip install cmake numpy==1.19.3
   pip install dlib pyqt5
   pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar
   deactivate
