@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 echo "*****************************************************"
 echo "*****************************************************"
@@ -26,6 +26,6 @@ pip install cmake
 pip install dlib pyqt5
 pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar
 echo ""
-echo "DONE. Run 'source venv/bin/activate' to run virtualenv."
+echo "DONE. Run 'source venv/bin/activate' to activate virtualenv."
 echo ""
 
