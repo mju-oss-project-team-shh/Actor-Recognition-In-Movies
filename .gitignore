@@ -22,3 +22,6 @@ encodings/private
 
 #virtualenv
 venv/
+
+#encoding
+encodings.pickle
