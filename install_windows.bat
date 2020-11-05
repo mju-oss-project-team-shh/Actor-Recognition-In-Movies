@@ -10,6 +10,7 @@ echo =====================================================
 echo *****                  WARNING                  *****
 echo =====================================================
 echo * Python 3.8 or higher version must be installed
+echo * You must run this script using cmd.exe
 echo * If your Python version is lower than 3.8, do not run this script
 :WrongInputError
 echo. 
@@ -45,10 +46,59 @@ if "%isPythonInstalled%" == "1" (
 )
 if "%isPythonInstalled%" == "2" (
   echo.
-  echo Install Python 3.8 or higher version and then run this script
-  echo You can download Python 3.8 executable installer at following links:
-  echo For 32bit: https://www.python.org/ftp/python/3.8.6/python-3.8.6.exe
-  echo For 64bit: https://www.python.org/ftp/python/3.8.6/python-3.8.6-amd64.exe
+  echo This script can automatically download Python 3.8 installer for Windows 10 PC.
+  echo Do you prefer to download and run the installer?
+  echo (Install manually if your Windows version is lower than 10)
+  :WrongInputError2
   echo.
+  echo [1] Download and run Python 3.8 installer.
+  echo [2] Do not download. I will install it manually by myself.
+  set /p isDownloadInstaller="Enter a #: "
+  set isWrongInput2=false
+  if "%isDownloadInstaller%" == "" set isWrongInput2=true
+  if not "%isDownloadInstaller%" == "1" (
+    if not "%isDownloadInstaller%" == "2" (
+      set isWrongInput2=true
+    )
+  )
+  if "%isWrongInput2%" == "true" (
+    echo [ERROR] Please enter 1 or 2
+    goto WrongInputError2
+  )
+
+  set installerURLamd64=https://www.python.org/ftp/python/3.8.6/python-3.8.6-amd64.exe
+  set installerURLx86=https://www.python.org/ftp/python/3.8.6/python-3.8.6.exe
+
+  if "%isDownloadInstaller%" == "1" (
+    set isAMD64=false
+    for /f "tokens=1,2 delims==" %%a in ('set pro') do (
+      if "%%a" == "PROCESSOR_ARCHITECTURE" (
+        if "%%b" == "AMD64" (
+          set isAMD64=true
+        )
+      )
+    )
+    for /f %%v in ('powershell -c "[guid]::NewGuid().ToString().ToUpper()"') do set NEWGUID=%%v
+    set installerEXE=__temp_python3.8_installer_%NEWGUID%__.exe
+    if "%isAMD64%" == "true" (
+      curl -o %installerEXE% %installerURLamd64%
+    ) else (
+      curl -o %installerEXE% %installerURLx86%
+    )
+    start /wait %installerEXE%
+    del %installerEXE%
+    echo.
+    echo Now run this script again to install packages or re-install Python 3.8
+    echo.
+  )
+  if "%isDownloadInstaller%" == "2" (
+    echo.
+    echo Install Python 3.8 or higher version and then run this script again.
+    echo.
+    echo You can download Python 3.8 executable installer at following links:
+    echo For 32bit: %installerURLx86%
+    echo For 64bit: %installerURLamd64%
+    echo.
+  )
 )
 
