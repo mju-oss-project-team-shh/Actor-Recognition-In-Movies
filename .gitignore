@@ -22,6 +22,7 @@ encodings/private
 
 #virtualenv
 venv/
+venv-windows/
 
 #encoding
 encodings.pickle
