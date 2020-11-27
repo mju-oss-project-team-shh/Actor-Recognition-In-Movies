@@ -24,7 +24,7 @@ virtualenv -p python3.8 venv
 . venv/bin/activate
 pip install cmake
 pip install dlib pyqt5
-pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar
+pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar console-menu
 echo ""
 echo "DONE. Run 'source venv/bin/activate' to activate virtualenv."
 echo ""
