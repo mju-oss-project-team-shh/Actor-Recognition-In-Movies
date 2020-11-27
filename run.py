@@ -7,6 +7,7 @@ from consolemenu.format import *
 from consolemenu.screen import Screen
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+from getActorList import searchByTitle
 
 menu = None
 movieName = None
@@ -85,6 +86,7 @@ def startCommand():
     global menu, fileType, chosenFile, movieName
     # TODO: Start commands
     # [1] Get actors's name
+    searchByTitle(movieName)
     # [2] Crawl
     #
     print("All process completed")
