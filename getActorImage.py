@@ -15,8 +15,8 @@ def getActorImage(search):
     ssl._create_default_https_context = ssl._create_unverified_context
     url = f'https://www.google.com/search?q={quote_plus(search)}&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjU-KPJ1YjrAhWbZt4KHRvQDPUQ_AUoAXoECA0QAw&biw=1920&bih=925'
 
-    path = "your chrome driver path"
-    driver = webdriver.Chrome(path)
+    driverPath = "your chrome driver"
+    driver = webdriver.Chrome(driverPath)
     driver.get(url)
     for i in range(500):
         driver.execute_script('window.scrollBy(0, 10000)')
@@ -34,13 +34,12 @@ def getActorImage(search):
         except KeyError:
             imgurl.append(i.attrs["data-src"])
 
+    path = f'./dataset/actors/{search}/'
     if os.path.isdir(path):
         print("이미 존재하는 배우입니다.")
     else:
         os.mkdir(path)
         for i in imgurl:
-            path = f'./dataset/actors/{search}/'
-
             filename = '0000000' + str(n)
             print("파일이름" + filename)
             if(n > 9):
