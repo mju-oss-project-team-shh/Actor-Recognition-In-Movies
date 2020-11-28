@@ -21,6 +21,6 @@ def translateKRToEN(name):
         result = json_dict['aResult'][0]
         name_items = result['aItems']
         names = [name_item['name'] for name_item in name_items]
-        return names[0]
+        return names[0].replace(" ", "_")
     else:
         print("Error Code:" + rescode)
