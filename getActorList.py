@@ -30,7 +30,7 @@ def searchByTitle(title):
                 #extracting actor list
                 actors = item['actor'].split('|')
                 return actors
-        return jsonresult['items'][0]['actor'].split('|')
+        return []
         
     
     #API usage error
