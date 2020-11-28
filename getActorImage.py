@@ -34,22 +34,25 @@ def getActorImage(search):
         except KeyError:
             imgurl.append(i.attrs["data-src"])
 
-    for i in imgurl:
-        path = f'./dataset/actors/{search}/'
-        if not os.path.isdir(path):
-            os.mkdir(path)
-        filename = '0000000' + str(n)
-        print("파일이름" + filename)
-        if(n > 9):
-            filename = '000000' + str(n)
-        urlretrieve(i, path + filename + ".jpg")
-        n += 1
-        print(str(n) + "번째 사진 저장 완료!")
+    if os.path.isdir(path):
+        print("이미 존재하는 배우입니다.")
+    else:
+        os.mkdir(path)
+        for i in imgurl:
+            path = f'./dataset/actors/{search}/'
 
-        # 이미지 파일 갯수 70개 제한
-        if(n == 70):
-            break
+            filename = '0000000' + str(n)
+            print("파일이름" + filename)
+            if(n > 9):
+                filename = '000000' + str(n)
+            urlretrieve(i, path + filename + ".jpg")
+            n += 1
+            print(str(n) + "번째 사진 저장 완료!")
 
-        print(url)
+            # 이미지 파일 갯수 70개 제한
+            if(n == 70):
+                break
 
-    driver.close()
+            print(url)
+
+        driver.close()
