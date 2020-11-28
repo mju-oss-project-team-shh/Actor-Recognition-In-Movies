@@ -1,12 +1,14 @@
 import json
 import urllib.request
+import ssl
 
-client_id = "<CLIENT ID>"
-client_secret = "<CLIENT SECRET>"
+client_id = "Client_id"
+client_secret = "Client_secret"
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def translateKRToEN(name):
-    encText = urllib.parse.quote(str(name))
+    encText = urllib.parse.quote(name)
     url = "https://openapi.naver.com/v1/krdict/romanization?query=" + encText
 
     request = urllib.request.Request(url)
