@@ -16,6 +16,7 @@ __pycache__
 
 #data
 dataset/private
+dataset/actors/*
 
 #encodings
 encodings/private
