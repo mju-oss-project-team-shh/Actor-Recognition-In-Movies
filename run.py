@@ -1,5 +1,6 @@
 import sys
 
+from os import system
 from time import sleep
 from consolemenu import *
 from consolemenu.items import *
@@ -7,8 +8,11 @@ from consolemenu.format import *
 from consolemenu.screen import Screen
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+import json
+
 from getActorList import searchByTitle
 from getActorImage import getActorImage
+
 
 menu = None
 movieName = None
@@ -91,23 +95,43 @@ def printChosenFile():
     menu.draw()
 
 
-def startCommand():
-    global menu, fileType, chosenFile, movieName
-    # TODO: Start commands
-    # [1] Get actors's name
+def backToMenu(taskName):
+    print(f'=== {taskName} completed ===')
+    for i in range(5):
+        s = str(5 - i)
+        print(f'Return to menu at {s} second(s)')
+        sleep(1)
+
+
+def startEnociding():
+    global fileType, chosenFile, movieName
+    if movieName is None:
+        return
+    if len(movieName) == 0:
+        return
     actorList = []
     actorList = searchByTitle(movieName)
-    # [2] Crawl
+    
     if actorList:
-        for i in actorList:
-            getActorImage(i)
+        for i in range(len(actorList) - 1):
+            getActorImage(actorList[i])
+        print("All actor images downloaded successfully")
+        system("python faceEncode.py --dataset dataset/actors --encodings encodings.pickle -d hog")
     else:
-        print("배우 리스트가 비어있습니다.")
-    #
-    print("All process completed")
-    for i in range(5):
-        print("Return to menu at " + str(5 - i) + " second(s)")
-        sleep(1)
+        print("Actor name list is empty")
+
+    backToMenu("Encoding")
+
+
+def startFaceRec():
+    global fileType, chosenFile
+    if chosenFile is None:
+        return
+    if fileType == "image":
+        system(f'python faceRecImage.py -e encodings.pickle -i {chosenFile} -d hog')
+    else:
+        system(f'python faceRecVideoFile.py -e encodings.pickle -i {chosenFile} -o {chosenFile} -y 0 -d hog')
+    backToMenu("Face recognition")
 
 
 def main():
@@ -132,14 +156,16 @@ def main():
     get_movie_name_item = FunctionItem("Show movie name", printMovieName, [])
     get_chosen_file_item = FunctionItem(
         "Show chosen file", printChosenFile, [])
-    input_item = FunctionItem("Start Conversion", startCommand, [])
+    encoding_item = FunctionItem("Start Encoding", startEnociding, [])
+    facerec_item = FunctionItem("Start Face Recognition", startFaceRec, [])
 
     menu.append_item(input_movie_name_item)
     menu.append_item(sel_img_item)
     menu.append_item(sel_vid_item)
     menu.append_item(get_movie_name_item)
     menu.append_item(get_chosen_file_item)
-    menu.append_item(input_item)
+    menu.append_item(encoding_item)
+    menu.append_item(facerec_item)
 
     menu.show()
 
