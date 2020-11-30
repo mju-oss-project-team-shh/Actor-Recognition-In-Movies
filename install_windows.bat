@@ -38,7 +38,8 @@ if "%isPythonInstalled%" == "1" (
   venv-windows\Scripts\activate
   pip install cmake numpy==1.19.3
   pip install dlib pyqt5
-  pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar console-menu
+  pip install imutils jupyter scipy pandas opencv-python face-recognition sklearn numpy progressbar console-menu selenium bs4 requests
+  pip install chromedriver-autoinstaller
   deactivate
   echo.
   echo "DONE. Run venv-windows\Scripts\activate to activate virtualenv."
