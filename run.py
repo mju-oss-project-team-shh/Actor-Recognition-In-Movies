@@ -130,7 +130,7 @@ def startFaceRec():
     if fileType == "image":
         system(f'python faceRecImage.py -e encodings.pickle -i {chosenFile} -d hog')
     else:
-        system(f'python faceRecVideoFile.py -e encodings.pickle -i {chosenFile} -o {chosenFile} -y 0 -d hog')
+        system(f'python faceRecVideoFile.py -e encodings.pickle -i {chosenFile} -o converted_{chosenFile} -y 0 -d hog')
     backToMenu("Face recognition")
 
 
