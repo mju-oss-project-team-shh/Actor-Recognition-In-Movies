@@ -1,5 +1,6 @@
 import sys
 
+import os
 from os import system
 from time import sleep
 from consolemenu import *
@@ -130,7 +131,9 @@ def startFaceRec():
     if fileType == "image":
         system(f'python faceRecImage.py -e encodings.pickle -i {chosenFile} -d hog')
     else:
-        system(f'python faceRecVideoFile.py -e encodings.pickle -i {chosenFile} -o converted_{chosenFile} -y 0 -d hog')
+        chosenDir,chosenFileName = os.path.split(chosenFile)
+        outputFile = os.path.join(chosenDir, f'converted_{chosenFileName}')
+        system(f'python faceRecVideoFile.py -e encodings.pickle -i {chosenFile} -o {outputFile} -y 0 -d hog')
     backToMenu("Face recognition")
 
 
